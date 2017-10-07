@@ -12,6 +12,10 @@ use AppBundle\Entity\User;
 use FOS\UserBundle\Model\UserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 
+/**
+ * Class AuthenticationSuccessListener
+ * @package AppBundle\EventListener
+ */
 class AuthenticationSuccessListener
 {
     /**

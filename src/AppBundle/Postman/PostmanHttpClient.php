@@ -8,12 +8,20 @@
 
 namespace AppBundle\Postman;
 
+use AppBundle\Entity\User;
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
+/**
+ * Class PostmanHttpClient
+ * @package AppBundle\Postman
+ */
 class PostmanHttpClient
 {
     /**
-     * @var Client
+     * @var Client $client
      */
     protected $client;
 
@@ -28,34 +36,48 @@ class PostmanHttpClient
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param User        $user
+     * @param string|null $id
+     *
+     * @return ResponseInterface
      */
-    public function getCollections()
+    public function getCollections(User $user, string $id = null)
     {
-        return $this->client->get("/collections");
+        return $this->doRequest(null === $id ? "/collections" : "/collections/$id", $user);
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param string $uri
+     * @param User   $user
+     *
+     * @return ResponseInterface
      */
-    public function getCollection($id)
+    private function doRequest(string $uri, User $user): ResponseInterface
     {
-        return $this->client->get("/collections/$id");
+
+        $token = $user->getPostmanToken();
+
+        if (null === $token) {
+            throw new BadCredentialsException();
+        }
+
+        $options = [
+            RequestOptions::HEADERS => [
+                'X-Api-Key' => $token,
+            ],
+        ];
+
+        return $this->client->get($uri, $options);
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @param User        $user
+     * @param string|null $id
+     *
+     * @return ResponseInterface
      */
-    public function getEnvironments()
+    public function getEnvironments(User $user, string $id = null)
     {
-        return $this->client->get("/environments");
-    }
-
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getEnvironment($id)
-    {
-        return $this->client->get("/environments/$id");
+        return $this->doRequest(null === $id ? "/environments" : "/environments/$id", $user);
     }
 }

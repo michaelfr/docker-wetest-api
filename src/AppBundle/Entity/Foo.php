@@ -7,6 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Class Foo
+ * @package AppBundle\Entity
+ *
  * This is a dummy entity. Remove it!
  *
  * @ApiResource

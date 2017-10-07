@@ -15,11 +15,16 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * Class User
+ * @package AppBundle\Entity
+ *
  * @ORM\Entity
- * @ApiResource(attributes={
- *     "normalization_context"={"groups"={"user", "user-read"}},
- *     "denormalization_context"={"groups"={"user", "user-write"}}
- * })
+ * @ApiResource(
+ *     attributes={
+ *          "normalization_context"={"groups"={"user", "user-read"}},
+ *          "denormalization_context"={"groups"={"user", "user-write"}}
+ *     }
+ * )
  */
 class User extends BaseUser
 {

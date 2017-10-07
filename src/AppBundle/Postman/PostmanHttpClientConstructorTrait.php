@@ -6,9 +6,13 @@
  * Time: 21:59
  */
 
-namespace AppBundle\Action\Postman;
+namespace AppBundle\Postman;
 
-trait PostmanConstructorTrait
+/**
+ * Trait UserPostmanConstructorTrait
+ * @package AppBundle\Action
+ */
+trait PostmanHttpClientConstructorTrait
 {
     /**
      * @var \AppBundle\Postman\PostmanHttpClient $postmanHttpClient
@@ -16,7 +20,7 @@ trait PostmanConstructorTrait
     protected $postmanHttpClient;
 
     /**
-     * GetCollectionAction constructor.
+     * PostmanHttpClientConstructorTrait constructor.
      *
      * @param \AppBundle\Postman\PostmanHttpClient $postmanHttpClient
      */
