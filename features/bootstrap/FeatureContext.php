@@ -4,6 +4,9 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\SchemaTool;
+use AppBundle\Entity\User;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behatch\Context\RestContext;
 
 /**
  * Defines application features from the specific context.
@@ -59,5 +62,35 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function dropDatabase()
     {
         $this->schemaTool->dropSchema($this->classes);
+    }
+
+    /**
+     * @BeforeScenario
+     * @login
+     *
+     * @see https://symfony.com/doc/current/security/entity_provider.html#creating-your-first-user
+     */
+    public function login(BeforeScenarioScope $scope)
+    {
+        $user = new User();
+        $user->setUsername('admin');
+        $user->setPassword('ATestPassword');
+        $user->setEmail('test@test.com');
+
+        $this->manager->persist($user);
+        $this->manager->flush();
+
+        $token = $this->jwtManager->create($user);
+
+        $this->restContext = $scope->getEnvironment()->getContext(RestContext::class);
+        $this->restContext->iAddHeaderEqualTo('Authorization', "Bearer $token");
+    }
+
+    /**
+     * @AfterScenario
+     * @logout
+     */
+    public function logout() {
+        $this->restContext->iAddHeaderEqualTo('Authorization', '');
     }
 }
