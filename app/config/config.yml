@@ -86,6 +86,7 @@ nelmio_cors:
         '^/': ~
 
 api_platform:
+    title: 'Wetest Api'
     enable_fos_user: true
     http_cache:
         invalidation:
@@ -109,3 +110,16 @@ lexik_jwt_authentication:
     public_key_path:  '%jwt_public_key_path%'
     pass_phrase:      '%jwt_key_pass_phrase%'
     token_ttl:        '%jwt_token_ttl%'
+
+csa_guzzle:
+    profiler: '%kernel.debug%'
+    logger: true
+    clients:
+        postman_api:
+            config: # you can specify the options as in http://docs.guzzlephp.org/en/latest/quickstart.html#creating-a-client
+                base_uri: 'https://api.getpostman.com'
+                timeout: '2.0'
+                http_errors: false
+                headers:
+                    X-Api-Key: '498b28d2928a41ccaf157e1acda0a437'
+                    Accept: 'application/json'
