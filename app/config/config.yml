@@ -82,6 +82,7 @@ nelmio_cors:
         '^/': ~
 
 api_platform:
+    title: 'Wetest Api'
     http_cache:
         invalidation:
             enabled: true
@@ -90,3 +91,16 @@ api_platform:
         shared_max_age: 3600
         vary: ['Content-Type', 'Authorization']
         public: true
+
+csa_guzzle:
+    profiler: '%kernel.debug%'
+    logger: true
+    clients:
+        postman_api:
+            config: # you can specify the options as in http://docs.guzzlephp.org/en/latest/quickstart.html#creating-a-client
+                base_uri: 'https://api.getpostman.com'
+                timeout: '2.0'
+                http_errors: false
+                headers:
+                    X-Api-Key: '498b28d2928a41ccaf157e1acda0a437'
+                    Accept: 'application/json'
