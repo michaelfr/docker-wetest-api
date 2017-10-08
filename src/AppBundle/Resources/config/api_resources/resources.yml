@@ -6,14 +6,8 @@ AppBundle\Entity\User:
             method: 'PUT'
         delete:
             method: 'DELETE'
-        user_postman_collection_item:
-            route_name: 'api_users_postman_collections_get_item'
-        user_postman_environment_item:
-            route_name: 'api_users_postman_environments_get_item'
-        user_postman_collection_list:
-            route_name: 'api_users_postman_collections_get_collection'
-        user_postman_environment_list:
-            route_name: 'api_users_postman_environments_get_collection'
+        user_postman_sync:
+            route_name: 'api_users_postman_sync'
     collectionOperations:
         get:
             method: 'GET'

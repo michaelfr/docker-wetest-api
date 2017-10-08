@@ -42,6 +42,65 @@ services:
               event: 'lexik_jwt_authentication.on_authentication_success'
               method: 'onAuthenticationSuccessResponse'
 
-    AppBundle\Postman\PostmanHttpClient:
+    app.serializer.denormalizer.base:
+        abstract: true
+        calls:
+            - ['setDenormalizer', ['@serializer']]
+
+    AppBundle\Serializer\Denormalizer\Json\CollectionDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+              priority: 64
+
+    AppBundle\Serializer\Denormalizer\Json\EventDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+              priority: 64
+
+    AppBundle\Serializer\Denormalizer\Json\EventDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+              priority: 64
+
+    AppBundle\Serializer\Denormalizer\Json\ItemDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+              priority: 64
+
+    AppBundle\Serializer\Denormalizer\Json\RequestDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+              priority: 64
+
+    AppBundle\Serializer\Denormalizer\Json\ResponseDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+              priority: 64
+
+    AppBundle\Postman\Manager:
         arguments:
             - '@csa_guzzle.client.postman_api'

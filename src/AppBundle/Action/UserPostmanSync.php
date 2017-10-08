@@ -2,35 +2,44 @@
 /**
  * Created by PhpStorm.
  * User: gdelre
- * Date: 07/10/17
- * Time: 19:38
+ * Date: 08/10/17
+ * Time: 11:26
  */
 
 namespace AppBundle\Action;
 
 use AppBundle\Entity\User;
-use AppBundle\Postman\PostmanHttpClientConstructorTrait;
+use AppBundle\Postman\Synchronizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class UserPostmanCollectionItem
- * @package AppBundle\Action
- */
-class UserPostmanCollectionItem
+class UserPostmanSync
 {
-    use PostmanHttpClientConstructorTrait;
+    /**
+     * @var Synchronizer $synchronizer
+     */
+    protected $synchronizer;
+
+    /**
+     * UserPostmanSync constructor.
+     *
+     * @param Synchronizer $synchronizer
+     */
+    public function __construct(Synchronizer $synchronizer)
+    {
+        $this->synchronizer = $synchronizer;
+    }
 
     /**
      * @Route(
-     *     path="/api/users/{id}/postman/collections/{collectionId}.{_format}",
-     *     name="api_users_postman_collections_get_item",
+     *     path="/api/users/{id}/postman/sync.{_format}",
+     *     name="api_users_postman_sync",
      *     defaults={
      *          "_api_resource_class"=User::class,
-     *          "_api_item_operation_name"="user_postman_collection_item",
-     *          "_format"="json"
+     *          "_api_item_operation_name"="user_postman_sync",
+     *          "_format"="application/json",
      *     }
      * )
      * @Method({"GET"})
@@ -40,13 +49,12 @@ class UserPostmanCollectionItem
      *
      * @param Request $request
      * @param User    $user
-     * @param string  $collectionId
      *
      * @return Response
      */
-    public function __invoke(Request $request, User $user, string $collectionId)
+    public function __invoke(Request $request, User $user)
     {
-        $response = $this->postmanHttpClient->getCollections($user, $collectionId);
+        $response = $this->synchronizer->sync($user);
 
         return new Response(
             $response->getBody()->getContents(),
