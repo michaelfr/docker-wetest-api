@@ -131,3 +131,8 @@ csa_guzzle:
                 headers:
                     X-Api-Key: '498b28d2928a41ccaf157e1acda0a437'
                     Accept: 'application/json'
+        wetest_api:
+            config: # you can specify the options as in http://docs.guzzlephp.org/en/latest/quickstart.html#creating-a-client
+                base_uri: 'http://127.0.0.1'
+                timeout: '2.0'
+                http_errors: false

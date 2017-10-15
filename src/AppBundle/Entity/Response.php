@@ -66,12 +66,11 @@ class Response
     protected $description = null;
 
     /**
-     * @var Definition
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Definition", inversedBy="responses")
-     * @ORM\JoinColumn(name="definition_id", referencedColumnName="id")
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"response"})
      */
-    protected $definition;
+    protected $schema = null;
 
     /**
      * @return string
@@ -146,7 +145,7 @@ class Response
      *
      * @return Response
      */
-    public function setDescription($description)
+    public function setDescription(string $description = null)
     {
         $this->description = $description;
 
@@ -154,22 +153,23 @@ class Response
     }
 
     /**
-     * @return Definition
+     * @return null|string
      */
-    public function getDefinition(): Definition
+    public function getSchema()
     {
-        return $this->definition;
+        return $this->schema;
     }
 
     /**
-     * @param Definition $definition
+     * @param null|string $schema
      *
      * @return Response
      */
-    public function setDefinition(Definition $definition)
+    public function setSchema(string $schema = null)
     {
-        $this->definition = $definition;
+        $this->schema = $schema;
 
         return $this;
     }
+
 }

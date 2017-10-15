@@ -46,15 +46,30 @@ services:
         abstract: true
         calls:
             - ['setDenormalizer', ['@serializer']]
-#
-#    AppBundle\Serializer\Denormalizer\RamlDenormalizer:
-#        parent: 'app.serializer.denormalizer.base'
-#        public: false
-#        autowire: false
-#        autoconfigure: false
-#        tags:
-#            - name: 'serializer.normalizer'
-#              priority: 64
+
+    AppBundle\Serializer\Denormalizer\Swagger\SpecificationDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+
+    AppBundle\Serializer\Denormalizer\Swagger\DefinitionDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
+
+    AppBundle\Serializer\Denormalizer\Swagger\OperationDenormalizer:
+        parent: 'app.serializer.denormalizer.base'
+        public: false
+        autowire: false
+        autoconfigure: false
+        tags:
+            - name: 'serializer.normalizer'
 
     AppBundle\Service\SpecificationManager:
         public: true

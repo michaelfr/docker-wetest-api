@@ -6,7 +6,7 @@ ui:
 api:
     resource: '.'
     type: 'api_platform'
-    prefix: '/'
+    prefix: '/api'
 
 app:
     resource: '@AppBundle/Action/'

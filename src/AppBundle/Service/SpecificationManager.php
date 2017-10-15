@@ -9,8 +9,9 @@
 namespace AppBundle\Service;
 
 
-use AppBundle\Model\Raml;
-use AppBundle\Model\Swagger;
+use AppBundle\Entity\Specification;
+use AppBundle\Interfaces\DocumentationInterface;
+use AppBundle\Interfaces\SpecificationInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -19,10 +20,6 @@ use Symfony\Component\Yaml\Parser;
 
 class SpecificationManager
 {
-    const FROM_SWAGGER = Swagger::class;
-
-    const FROM_RAML = Raml::class;
-
     /**
      * @var DenormalizerInterface
      */
@@ -68,18 +65,18 @@ class SpecificationManager
         /** @var SplFileInfo $filename */
         foreach ($finder->name('*.yml')->files()->in($this->schemaPath) as $filename) {
             $data = $this->yamlParser->parse($filename->getContents());
-            $class = isset($data['swagger']) ? self::FROM_SWAGGER : self::FROM_RAML;
-            $schemas[] = $this->denormalizer->denormalize($data, $class);
+            $format = isset($data['swagger']) ? DocumentationInterface::SWAGGER_FORMAT : DocumentationInterface::RAML_FORMAT;
+            $schemas[] = $this->denormalizer->denormalize($data, Specification::class, $format);
         }
 
         $finder = new Finder();
         /** @var SplFileInfo $filename */
         foreach ($finder->name('*.json')->files()->in($this->schemaPath) as $filename) {
             $data = $this->jsonEncoder->decode($filename->getContents(), JsonEncoder::FORMAT);
-            $class = isset($data['swagger']) ? self::FROM_SWAGGER : self::FROM_RAML;
-            $schemas[] = $this->denormalizer->denormalize($data, $class);
+            $format = isset($data['swagger']) ? DocumentationInterface::SWAGGER_FORMAT : DocumentationInterface::RAML_FORMAT;
+            $schemas[] = $this->denormalizer->denormalize($data, Specification::class, $format);
         }
-
+        dump($schemas);
         return $schemas;
     }
 }

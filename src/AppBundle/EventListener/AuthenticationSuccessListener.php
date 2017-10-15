@@ -33,7 +33,6 @@ class AuthenticationSuccessListener
 
         $data['data'] = array(
             'roles' => $user->getRoles(),
-            'postman_token' => $user->getPostmanToken(),
         );
 
         $event->setData($data);

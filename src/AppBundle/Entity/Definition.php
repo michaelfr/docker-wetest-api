@@ -13,6 +13,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection as DoctrineCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +29,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  *
  * @ORM\Entity()
+ * @ORM\Table(
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="specification_name_unique", columns={"specification_id", "name"})
+ *     }
+ * )
+ *
+ * @UniqueEntity(
+ *     fields={"specification", "name"},
+ *     errorPath="name",
+ *     message="The name is already use in this specification."
+ * )
  */
 class Definition
 {
@@ -64,21 +76,6 @@ class Definition
      * @Groups({"definition"})
      */
     protected $schema;
-
-    /**
-     * @var Response[]|DoctrineCollection|ArrayCollection|array
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Response", mappedBy="definition")
-     * @Groups({"definition"})
-     */
-    protected $responses;
-
-    /**
-     * Definition constructor.
-     */
-    public function __construct()
-    {
-        $this->responses = new ArrayCollection();
-    }
 
     /**
      * @return string
@@ -156,26 +153,6 @@ class Definition
     public function setSchema(string $schema)
     {
         $this->schema = $schema;
-
-        return $this;
-    }
-
-    /**
-     * @return Response[]|array|ArrayCollection|DoctrineCollection
-     */
-    public function getResponses()
-    {
-        return $this->responses;
-    }
-
-    /**
-     * @param Response[]|array|ArrayCollection|DoctrineCollection $responses
-     *
-     * @return Definition
-     */
-    public function setResponses($responses)
-    {
-        $this->responses = $responses;
 
         return $this;
     }

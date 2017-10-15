@@ -18,20 +18,20 @@ security:
     firewalls:
         login:
             pattern:  '^/login'
+            provider: 'fos_userbundle'
             stateless: true
             anonymous: true
-            provider: 'fos_userbundle'
             form_login:
                 check_path: '/login_check'
                 success_handler: 'lexik_jwt_authentication.handler.authentication_success'
                 failure_handler: 'lexik_jwt_authentication.handler.authentication_failure'
                 require_previous_session: false
-            json_login:
-                check_path: '/login_check'
-                username_path: 'email'
-                password_path: 'password'
-                success_handler: 'lexik_jwt_authentication.handler.authentication_success'
-                failure_handler: 'lexik_jwt_authentication.handler.authentication_failure'
+#            json_login:
+#                check_path: '/login_check'
+#                username_path: 'email'
+#                password_path: 'password'
+#                success_handler: 'lexik_jwt_authentication.handler.authentication_success'
+#                failure_handler: 'lexik_jwt_authentication.handler.authentication_failure'
 
         main:
             pattern:   '^/'
@@ -39,6 +39,9 @@ security:
             stateless: true
             anonymous: true
             lexik_jwt: ~
+            logout:
+                path:   '/logout'
+                target: '/ui/login' #This is home url
 
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/

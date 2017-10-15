@@ -86,15 +86,15 @@ class Specification
     protected $project;
 
     /**
-     * @var Resource[]|DoctrineCollection|ArrayCollection|array
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Resource", mappedBy="specification")
-     * @Groups({"specification"})
+     * @var Operation[]|DoctrineCollection|ArrayCollection|array
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Operation", mappedBy="resource", cascade={"persist", "remove"})
+     * @Groups({"resource-read"})
      */
-    protected $resources;
+    protected $operations;
 
     /**
      * @var Definition[]|DoctrineCollection|ArrayCollection|array
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Definition", mappedBy="specification")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Definition", mappedBy="specification", cascade={"persist", "remove"})
      * @Groups({"specification"})
      */
     protected $definitions;
@@ -104,7 +104,7 @@ class Specification
      */
     public function __construct()
     {
-        $this->resources = new ArrayCollection();
+        $this->operations = new ArrayCollection();
         $this->definitions = new ArrayCollection();
     }
 
@@ -209,21 +209,21 @@ class Specification
     }
 
     /**
-     * @return array|ArrayCollection|DoctrineCollection|Resource[]
+     * @return Operation[]|array|ArrayCollection|DoctrineCollection
      */
-    public function getResources()
+    public function getOperations()
     {
-        return $this->resources;
+        return $this->operations;
     }
 
     /**
-     * @param array|ArrayCollection|DoctrineCollection|Resource[] $resources
+     * @param Operation[]|array|ArrayCollection|DoctrineCollection $operations
      *
      * @return Specification
      */
-    public function setResources($resources)
+    public function setOperations($operations)
     {
-        $this->resources = $resources;
+        $this->operations = $operations;
 
         return $this;
     }
