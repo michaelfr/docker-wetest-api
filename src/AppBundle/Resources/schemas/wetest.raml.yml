@@ -1,0 +1,1294 @@
+#%RAML 1.0
+title: Wetest Api
+version: 0.0.0
+baseUri: /
+annotationTypes:
+  oas-readOnly:
+    type: boolean
+    allowedTargets: TypeDeclaration
+  oas-summary:
+    type: string
+    allowedTargets: Method
+  oas-tags:
+    type: 'string[]'
+    allowedTargets: Method
+  oas-body-name:
+    type: string
+    allowedTargets: TypeDeclaration
+types:
+  Collection-collection_collection-read:
+    description: Class Collection
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+        required: false
+      schemaUrl:
+        type: string
+        required: false
+      items:
+        type: array
+        items:
+          type: string
+        (oas-readOnly): true
+        required: false
+  Collection-collection_collection-write:
+    description: Class Collection
+    type: object
+    properties:
+      postmanId:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+        required: false
+      schemaUrl:
+        type: string
+        required: false
+      user:
+        type: string
+        required: false
+  Environment-environment_environment-read:
+    description: Class Environment
+    type: object
+  Environment-environment_environment-write:
+    description: Class Environment
+    type: object
+    properties:
+      postmanId:
+        type: string
+      user:
+        type: string
+        required: false
+  Event-event_event-read:
+    description: Class Event
+    type: object
+    properties:
+      listen:
+        type: string
+      script:
+        type: string
+        (oas-readOnly): true
+        required: false
+  Event-event_event-write:
+    description: Class Event
+    type: object
+    properties:
+      listen:
+        type: string
+      item:
+        type: string
+        required: false
+  Item-item_item-read:
+    description: Class Request
+    type: object
+    properties:
+      name:
+        type: string
+      group:
+        type: string
+        required: false
+      description:
+        type: string
+        required: false
+      events:
+        type: array
+        items:
+          type: string
+        (oas-readOnly): true
+        required: false
+      request:
+        type: string
+        (oas-readOnly): true
+        required: false
+      responses:
+        type: array
+        items:
+          type: string
+        (oas-readOnly): true
+        required: false
+  Item-item_item-write:
+    description: Class Request
+    type: object
+    properties:
+      postmanId:
+        type: string
+      name:
+        type: string
+      group:
+        type: string
+        required: false
+      description:
+        type: string
+        required: false
+      collection:
+        type: string
+        required: false
+  Request-request_request-read:
+    description: Class Request
+    type: object
+    properties:
+      url:
+        type: string
+        required: false
+      method:
+        type: string
+        required: false
+      mode:
+        type: string
+        required: false
+      body:
+        type: string
+        required: false
+      headers:
+        type: array
+        items:
+          type: string
+      description:
+        type: string
+        required: false
+  Request-request_request-write:
+    description: Class Request
+    type: object
+    properties:
+      url:
+        type: string
+        required: false
+      method:
+        type: string
+        required: false
+      mode:
+        type: string
+        required: false
+      body:
+        type: string
+        required: false
+      headers:
+        type: array
+        items:
+          type: string
+      description:
+        type: string
+        required: false
+      item:
+        type: string
+        required: false
+  Response-response_response-read:
+    description: Class Response
+    type: object
+  Response-response_response-write:
+    description: Class Response
+    type: object
+    properties:
+      item:
+        type: string
+        required: false
+  Script-script_script-read:
+    description: Class Script
+    type: object
+    properties:
+      event:
+        type: string
+        (oas-readOnly): true
+        required: false
+      type:
+        type: string
+      exec:
+        type: string
+  Script-script_script-write:
+    description: Class Script
+    type: object
+    properties:
+      type:
+        type: string
+      exec:
+        type: string
+  User-user_user-read:
+    description: Class User
+    type: object
+    properties:
+      email:
+        type: string
+        required: false
+      fullname:
+        type: string
+        required: false
+      username:
+        type: string
+        required: false
+      collections:
+        type: array
+        items:
+          type: string
+        (oas-readOnly): true
+        required: false
+      environments:
+        type: array
+        items:
+          type: string
+        (oas-readOnly): true
+        required: false
+  User-user_user-write:
+    description: Class User
+    type: object
+    properties:
+      email:
+        type: string
+        required: false
+      fullname:
+        type: string
+        required: false
+      plainPassword:
+        required: false
+      postmanToken:
+        type: string
+        required: false
+      username:
+        type: string
+        required: false
+/api:
+  /collections:
+    get:
+      displayName: getCollectionCollection
+      responses:
+        '200':
+          description: Collection collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Collection-collection_collection-read
+            application/json:
+              type: array
+              items:
+                type: Collection-collection_collection-read
+            text/html:
+              type: array
+              items:
+                type: Collection-collection_collection-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Collection resources.
+      (oas-tags):
+        - Collection
+    post:
+      displayName: postCollectionCollection
+      responses:
+        '201':
+          description: Collection resource created
+          body:
+            application/ld+json:
+              type: Collection-collection_collection-read
+            application/json:
+              type: Collection-collection_collection-read
+            text/html:
+              type: Collection-collection_collection-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Collection resource
+          type: Collection-collection_collection-write
+          required: false
+          (oas-body-name): collection
+        application/json:
+          description: The new Collection resource
+          type: Collection-collection_collection-write
+          required: false
+          (oas-body-name): collection
+        text/html:
+          description: The new Collection resource
+          type: Collection-collection_collection-write
+          required: false
+          (oas-body-name): collection
+      (oas-summary): Creates a Collection resource.
+      (oas-tags):
+        - Collection
+    '/{id}':
+      get:
+        displayName: getCollectionItem
+        responses:
+          '200':
+            description: Collection resource response
+            body:
+              application/ld+json:
+                type: Collection-collection_collection-read
+              application/json:
+                type: Collection-collection_collection-read
+              text/html:
+                type: Collection-collection_collection-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Collection resource.
+        (oas-tags):
+          - Collection
+      put:
+        displayName: putCollectionItem
+        responses:
+          '200':
+            description: Collection resource updated
+            body:
+              application/ld+json:
+                type: Collection-collection_collection-read
+              application/json:
+                type: Collection-collection_collection-read
+              text/html:
+                type: Collection-collection_collection-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Collection resource
+            type: Collection-collection_collection-write
+            required: false
+            (oas-body-name): collection
+          application/json:
+            description: The updated Collection resource
+            type: Collection-collection_collection-write
+            required: false
+            (oas-body-name): collection
+          text/html:
+            description: The updated Collection resource
+            type: Collection-collection_collection-write
+            required: false
+            (oas-body-name): collection
+        (oas-summary): Replaces the Collection resource.
+        (oas-tags):
+          - Collection
+      delete:
+        displayName: deleteCollectionItem
+        responses:
+          '204':
+            description: Collection resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Collection resource.
+        (oas-tags):
+          - Collection
+      uriParameters:
+        id:
+          type: string
+  /environments:
+    get:
+      displayName: getEnvironmentCollection
+      responses:
+        '200':
+          description: Environment collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Environment-environment_environment-read
+            application/json:
+              type: array
+              items:
+                type: Environment-environment_environment-read
+            text/html:
+              type: array
+              items:
+                type: Environment-environment_environment-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Environment resources.
+      (oas-tags):
+        - Environment
+    post:
+      displayName: postEnvironmentCollection
+      responses:
+        '201':
+          description: Environment resource created
+          body:
+            application/ld+json:
+              type: Environment-environment_environment-read
+            application/json:
+              type: Environment-environment_environment-read
+            text/html:
+              type: Environment-environment_environment-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Environment resource
+          type: Environment-environment_environment-write
+          required: false
+          (oas-body-name): environment
+        application/json:
+          description: The new Environment resource
+          type: Environment-environment_environment-write
+          required: false
+          (oas-body-name): environment
+        text/html:
+          description: The new Environment resource
+          type: Environment-environment_environment-write
+          required: false
+          (oas-body-name): environment
+      (oas-summary): Creates a Environment resource.
+      (oas-tags):
+        - Environment
+    '/{id}':
+      get:
+        displayName: getEnvironmentItem
+        responses:
+          '200':
+            description: Environment resource response
+            body:
+              application/ld+json:
+                type: Environment-environment_environment-read
+              application/json:
+                type: Environment-environment_environment-read
+              text/html:
+                type: Environment-environment_environment-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Environment resource.
+        (oas-tags):
+          - Environment
+      put:
+        displayName: putEnvironmentItem
+        responses:
+          '200':
+            description: Environment resource updated
+            body:
+              application/ld+json:
+                type: Environment-environment_environment-read
+              application/json:
+                type: Environment-environment_environment-read
+              text/html:
+                type: Environment-environment_environment-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Environment resource
+            type: Environment-environment_environment-write
+            required: false
+            (oas-body-name): environment
+          application/json:
+            description: The updated Environment resource
+            type: Environment-environment_environment-write
+            required: false
+            (oas-body-name): environment
+          text/html:
+            description: The updated Environment resource
+            type: Environment-environment_environment-write
+            required: false
+            (oas-body-name): environment
+        (oas-summary): Replaces the Environment resource.
+        (oas-tags):
+          - Environment
+      delete:
+        displayName: deleteEnvironmentItem
+        responses:
+          '204':
+            description: Environment resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Environment resource.
+        (oas-tags):
+          - Environment
+      uriParameters:
+        id:
+          type: string
+  /events:
+    get:
+      displayName: getEventCollection
+      responses:
+        '200':
+          description: Event collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Event-event_event-read
+            application/json:
+              type: array
+              items:
+                type: Event-event_event-read
+            text/html:
+              type: array
+              items:
+                type: Event-event_event-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Event resources.
+      (oas-tags):
+        - Event
+    post:
+      displayName: postEventCollection
+      responses:
+        '201':
+          description: Event resource created
+          body:
+            application/ld+json:
+              type: Event-event_event-read
+            application/json:
+              type: Event-event_event-read
+            text/html:
+              type: Event-event_event-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Event resource
+          type: Event-event_event-write
+          required: false
+          (oas-body-name): event
+        application/json:
+          description: The new Event resource
+          type: Event-event_event-write
+          required: false
+          (oas-body-name): event
+        text/html:
+          description: The new Event resource
+          type: Event-event_event-write
+          required: false
+          (oas-body-name): event
+      (oas-summary): Creates a Event resource.
+      (oas-tags):
+        - Event
+    '/{id}':
+      get:
+        displayName: getEventItem
+        responses:
+          '200':
+            description: Event resource response
+            body:
+              application/ld+json:
+                type: Event-event_event-read
+              application/json:
+                type: Event-event_event-read
+              text/html:
+                type: Event-event_event-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Event resource.
+        (oas-tags):
+          - Event
+      put:
+        displayName: putEventItem
+        responses:
+          '200':
+            description: Event resource updated
+            body:
+              application/ld+json:
+                type: Event-event_event-read
+              application/json:
+                type: Event-event_event-read
+              text/html:
+                type: Event-event_event-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Event resource
+            type: Event-event_event-write
+            required: false
+            (oas-body-name): event
+          application/json:
+            description: The updated Event resource
+            type: Event-event_event-write
+            required: false
+            (oas-body-name): event
+          text/html:
+            description: The updated Event resource
+            type: Event-event_event-write
+            required: false
+            (oas-body-name): event
+        (oas-summary): Replaces the Event resource.
+        (oas-tags):
+          - Event
+      delete:
+        displayName: deleteEventItem
+        responses:
+          '204':
+            description: Event resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Event resource.
+        (oas-tags):
+          - Event
+      uriParameters:
+        id:
+          type: string
+  /items:
+    get:
+      displayName: getItemCollection
+      responses:
+        '200':
+          description: Item collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Item-item_item-read
+            application/json:
+              type: array
+              items:
+                type: Item-item_item-read
+            text/html:
+              type: array
+              items:
+                type: Item-item_item-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Item resources.
+      (oas-tags):
+        - Item
+    post:
+      displayName: postItemCollection
+      responses:
+        '201':
+          description: Item resource created
+          body:
+            application/ld+json:
+              type: Item-item_item-read
+            application/json:
+              type: Item-item_item-read
+            text/html:
+              type: Item-item_item-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Item resource
+          type: Item-item_item-write
+          required: false
+          (oas-body-name): item
+        application/json:
+          description: The new Item resource
+          type: Item-item_item-write
+          required: false
+          (oas-body-name): item
+        text/html:
+          description: The new Item resource
+          type: Item-item_item-write
+          required: false
+          (oas-body-name): item
+      (oas-summary): Creates a Item resource.
+      (oas-tags):
+        - Item
+    '/{id}':
+      get:
+        displayName: getItemItem
+        responses:
+          '200':
+            description: Item resource response
+            body:
+              application/ld+json:
+                type: Item-item_item-read
+              application/json:
+                type: Item-item_item-read
+              text/html:
+                type: Item-item_item-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Item resource.
+        (oas-tags):
+          - Item
+      put:
+        displayName: putItemItem
+        responses:
+          '200':
+            description: Item resource updated
+            body:
+              application/ld+json:
+                type: Item-item_item-read
+              application/json:
+                type: Item-item_item-read
+              text/html:
+                type: Item-item_item-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Item resource
+            type: Item-item_item-write
+            required: false
+            (oas-body-name): item
+          application/json:
+            description: The updated Item resource
+            type: Item-item_item-write
+            required: false
+            (oas-body-name): item
+          text/html:
+            description: The updated Item resource
+            type: Item-item_item-write
+            required: false
+            (oas-body-name): item
+        (oas-summary): Replaces the Item resource.
+        (oas-tags):
+          - Item
+      delete:
+        displayName: deleteItemItem
+        responses:
+          '204':
+            description: Item resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Item resource.
+        (oas-tags):
+          - Item
+      uriParameters:
+        id:
+          type: string
+  /requests:
+    get:
+      displayName: getRequestCollection
+      responses:
+        '200':
+          description: Request collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Request-request_request-read
+            application/json:
+              type: array
+              items:
+                type: Request-request_request-read
+            text/html:
+              type: array
+              items:
+                type: Request-request_request-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Request resources.
+      (oas-tags):
+        - Request
+    post:
+      displayName: postRequestCollection
+      responses:
+        '201':
+          description: Request resource created
+          body:
+            application/ld+json:
+              type: Request-request_request-read
+            application/json:
+              type: Request-request_request-read
+            text/html:
+              type: Request-request_request-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Request resource
+          type: Request-request_request-write
+          required: false
+          (oas-body-name): request
+        application/json:
+          description: The new Request resource
+          type: Request-request_request-write
+          required: false
+          (oas-body-name): request
+        text/html:
+          description: The new Request resource
+          type: Request-request_request-write
+          required: false
+          (oas-body-name): request
+      (oas-summary): Creates a Request resource.
+      (oas-tags):
+        - Request
+    '/{id}':
+      get:
+        displayName: getRequestItem
+        responses:
+          '200':
+            description: Request resource response
+            body:
+              application/ld+json:
+                type: Request-request_request-read
+              application/json:
+                type: Request-request_request-read
+              text/html:
+                type: Request-request_request-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Request resource.
+        (oas-tags):
+          - Request
+      put:
+        displayName: putRequestItem
+        responses:
+          '200':
+            description: Request resource updated
+            body:
+              application/ld+json:
+                type: Request-request_request-read
+              application/json:
+                type: Request-request_request-read
+              text/html:
+                type: Request-request_request-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Request resource
+            type: Request-request_request-write
+            required: false
+            (oas-body-name): request
+          application/json:
+            description: The updated Request resource
+            type: Request-request_request-write
+            required: false
+            (oas-body-name): request
+          text/html:
+            description: The updated Request resource
+            type: Request-request_request-write
+            required: false
+            (oas-body-name): request
+        (oas-summary): Replaces the Request resource.
+        (oas-tags):
+          - Request
+      delete:
+        displayName: deleteRequestItem
+        responses:
+          '204':
+            description: Request resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Request resource.
+        (oas-tags):
+          - Request
+      uriParameters:
+        id:
+          type: string
+  /responses:
+    get:
+      displayName: getResponseCollection
+      responses:
+        '200':
+          description: Response collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Response-response_response-read
+            application/json:
+              type: array
+              items:
+                type: Response-response_response-read
+            text/html:
+              type: array
+              items:
+                type: Response-response_response-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Response resources.
+      (oas-tags):
+        - Response
+    post:
+      displayName: postResponseCollection
+      responses:
+        '201':
+          description: Response resource created
+          body:
+            application/ld+json:
+              type: Response-response_response-read
+            application/json:
+              type: Response-response_response-read
+            text/html:
+              type: Response-response_response-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Response resource
+          type: Response-response_response-write
+          required: false
+          (oas-body-name): response
+        application/json:
+          description: The new Response resource
+          type: Response-response_response-write
+          required: false
+          (oas-body-name): response
+        text/html:
+          description: The new Response resource
+          type: Response-response_response-write
+          required: false
+          (oas-body-name): response
+      (oas-summary): Creates a Response resource.
+      (oas-tags):
+        - Response
+    '/{id}':
+      get:
+        displayName: getResponseItem
+        responses:
+          '200':
+            description: Response resource response
+            body:
+              application/ld+json:
+                type: Response-response_response-read
+              application/json:
+                type: Response-response_response-read
+              text/html:
+                type: Response-response_response-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Response resource.
+        (oas-tags):
+          - Response
+      put:
+        displayName: putResponseItem
+        responses:
+          '200':
+            description: Response resource updated
+            body:
+              application/ld+json:
+                type: Response-response_response-read
+              application/json:
+                type: Response-response_response-read
+              text/html:
+                type: Response-response_response-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Response resource
+            type: Response-response_response-write
+            required: false
+            (oas-body-name): response
+          application/json:
+            description: The updated Response resource
+            type: Response-response_response-write
+            required: false
+            (oas-body-name): response
+          text/html:
+            description: The updated Response resource
+            type: Response-response_response-write
+            required: false
+            (oas-body-name): response
+        (oas-summary): Replaces the Response resource.
+        (oas-tags):
+          - Response
+      delete:
+        displayName: deleteResponseItem
+        responses:
+          '204':
+            description: Response resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Response resource.
+        (oas-tags):
+          - Response
+      uriParameters:
+        id:
+          type: string
+  /scripts:
+    get:
+      displayName: getScriptCollection
+      responses:
+        '200':
+          description: Script collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: Script-script_script-read
+            application/json:
+              type: array
+              items:
+                type: Script-script_script-read
+            text/html:
+              type: array
+              items:
+                type: Script-script_script-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of Script resources.
+      (oas-tags):
+        - Script
+    post:
+      displayName: postScriptCollection
+      responses:
+        '201':
+          description: Script resource created
+          body:
+            application/ld+json:
+              type: Script-script_script-read
+            application/json:
+              type: Script-script_script-read
+            text/html:
+              type: Script-script_script-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new Script resource
+          type: Script-script_script-write
+          required: false
+          (oas-body-name): script
+        application/json:
+          description: The new Script resource
+          type: Script-script_script-write
+          required: false
+          (oas-body-name): script
+        text/html:
+          description: The new Script resource
+          type: Script-script_script-write
+          required: false
+          (oas-body-name): script
+      (oas-summary): Creates a Script resource.
+      (oas-tags):
+        - Script
+    '/{id}':
+      get:
+        displayName: getScriptItem
+        responses:
+          '200':
+            description: Script resource response
+            body:
+              application/ld+json:
+                type: Script-script_script-read
+              application/json:
+                type: Script-script_script-read
+              text/html:
+                type: Script-script_script-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a Script resource.
+        (oas-tags):
+          - Script
+      put:
+        displayName: putScriptItem
+        responses:
+          '200':
+            description: Script resource updated
+            body:
+              application/ld+json:
+                type: Script-script_script-read
+              application/json:
+                type: Script-script_script-read
+              text/html:
+                type: Script-script_script-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated Script resource
+            type: Script-script_script-write
+            required: false
+            (oas-body-name): script
+          application/json:
+            description: The updated Script resource
+            type: Script-script_script-write
+            required: false
+            (oas-body-name): script
+          text/html:
+            description: The updated Script resource
+            type: Script-script_script-write
+            required: false
+            (oas-body-name): script
+        (oas-summary): Replaces the Script resource.
+        (oas-tags):
+          - Script
+      delete:
+        displayName: deleteScriptItem
+        responses:
+          '204':
+            description: Script resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the Script resource.
+        (oas-tags):
+          - Script
+      uriParameters:
+        id:
+          type: string
+  /users:
+    get:
+      displayName: getUserCollection
+      responses:
+        '200':
+          description: User collection response
+          body:
+            application/ld+json:
+              type: array
+              items:
+                type: User-user_user-read
+            application/json:
+              type: array
+              items:
+                type: User-user_user-read
+            text/html:
+              type: array
+              items:
+                type: User-user_user-read
+      queryParameters:
+        page:
+          description: The collection page number
+          required: false
+          type: integer
+      (oas-summary): Retrieves the collection of User resources.
+      (oas-tags):
+        - User
+    post:
+      displayName: postUserCollection
+      responses:
+        '201':
+          description: User resource created
+          body:
+            application/ld+json:
+              type: User-user_user-read
+            application/json:
+              type: User-user_user-read
+            text/html:
+              type: User-user_user-read
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+      body:
+        application/ld+json:
+          description: The new User resource
+          type: User-user_user-write
+          required: false
+          (oas-body-name): user
+        application/json:
+          description: The new User resource
+          type: User-user_user-write
+          required: false
+          (oas-body-name): user
+        text/html:
+          description: The new User resource
+          type: User-user_user-write
+          required: false
+          (oas-body-name): user
+      (oas-summary): Creates a User resource.
+      (oas-tags):
+        - User
+    '/{id}':
+      get:
+        displayName: getUserItem
+        responses:
+          '200':
+            description: User resource response
+            body:
+              application/ld+json:
+                type: User-user_user-read
+              application/json:
+                type: User-user_user-read
+              text/html:
+                type: User-user_user-read
+          '404':
+            description: Resource not found
+        (oas-summary): Retrieves a User resource.
+        (oas-tags):
+          - User
+      put:
+        displayName: putUserItem
+        responses:
+          '200':
+            description: User resource updated
+            body:
+              application/ld+json:
+                type: User-user_user-read
+              application/json:
+                type: User-user_user-read
+              text/html:
+                type: User-user_user-read
+          '400':
+            description: Invalid input
+          '404':
+            description: Resource not found
+        body:
+          application/ld+json:
+            description: The updated User resource
+            type: User-user_user-write
+            required: false
+            (oas-body-name): user
+          application/json:
+            description: The updated User resource
+            type: User-user_user-write
+            required: false
+            (oas-body-name): user
+          text/html:
+            description: The updated User resource
+            type: User-user_user-write
+            required: false
+            (oas-body-name): user
+        (oas-summary): Replaces the User resource.
+        (oas-tags):
+          - User
+      delete:
+        displayName: deleteUserItem
+        responses:
+          '204':
+            description: User resource deleted
+          '404':
+            description: Resource not found
+        (oas-summary): Removes the User resource.
+        (oas-tags):
+          - User
+      uriParameters:
+        id:
+          type: string
+      /postman/sync:
+        get:
+          displayName: user_postman_syncUserItem
+          responses:
+            '200':
+              description: User resource response
+              body:
+                application/ld+json:
+                  type: User-user_user-read
+                application/json:
+                  type: User-user_user-read
+                text/html:
+                  type: User-user_user-read
+            '404':
+              description: Resource not found
+          (oas-summary): Retrieves a User resource.
+          (oas-tags):
+            - User

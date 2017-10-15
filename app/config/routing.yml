@@ -1,7 +1,12 @@
+ui:
+    resource: "@UiBundle/Controller/"
+    type:     'annotation'
+    prefix:   '/ui'
+
 api:
     resource: '.'
     type: 'api_platform'
-    prefix: '/api'
+    prefix: '/'
 
 app:
     resource: '@AppBundle/Action/'
@@ -11,4 +16,4 @@ fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 api_login_check:
-    path: /login_check
+    path: '/login_check'

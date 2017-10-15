@@ -20,7 +20,7 @@ services:
         resource: '../../src/AppBundle/*'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
-        exclude: '../../src/AppBundle/{Postman,Entity,Repository}'
+        exclude: '../../src/AppBundle/{Model,Entity,Repository}'
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
@@ -46,61 +46,19 @@ services:
         abstract: true
         calls:
             - ['setDenormalizer', ['@serializer']]
+#
+#    AppBundle\Serializer\Denormalizer\RamlDenormalizer:
+#        parent: 'app.serializer.denormalizer.base'
+#        public: false
+#        autowire: false
+#        autoconfigure: false
+#        tags:
+#            - name: 'serializer.normalizer'
+#              priority: 64
 
-    AppBundle\Serializer\Denormalizer\Json\CollectionDenormalizer:
-        parent: 'app.serializer.denormalizer.base'
-        public: false
-        autowire: false
-        autoconfigure: false
-        tags:
-            - name: 'serializer.normalizer'
-              priority: 64
-
-    AppBundle\Serializer\Denormalizer\Json\EventDenormalizer:
-        parent: 'app.serializer.denormalizer.base'
-        public: false
-        autowire: false
-        autoconfigure: false
-        tags:
-            - name: 'serializer.normalizer'
-              priority: 64
-
-    AppBundle\Serializer\Denormalizer\Json\EventDenormalizer:
-        parent: 'app.serializer.denormalizer.base'
-        public: false
-        autowire: false
-        autoconfigure: false
-        tags:
-            - name: 'serializer.normalizer'
-              priority: 64
-
-    AppBundle\Serializer\Denormalizer\Json\ItemDenormalizer:
-        parent: 'app.serializer.denormalizer.base'
-        public: false
-        autowire: false
-        autoconfigure: false
-        tags:
-            - name: 'serializer.normalizer'
-              priority: 64
-
-    AppBundle\Serializer\Denormalizer\Json\RequestDenormalizer:
-        parent: 'app.serializer.denormalizer.base'
-        public: false
-        autowire: false
-        autoconfigure: false
-        tags:
-            - name: 'serializer.normalizer'
-              priority: 64
-
-    AppBundle\Serializer\Denormalizer\Json\ResponseDenormalizer:
-        parent: 'app.serializer.denormalizer.base'
-        public: false
-        autowire: false
-        autoconfigure: false
-        tags:
-            - name: 'serializer.normalizer'
-              priority: 64
-
-    AppBundle\Postman\Manager:
+    AppBundle\Service\SpecificationManager:
+        public: true
         arguments:
-            - '@csa_guzzle.client.postman_api'
+            - '@serializer'
+            - '@serializer.encoder.json'
+            - '%kernel.project_dir%/src/AppBundle/Resources/schemas'

@@ -1,0 +1,1208 @@
+swagger: '2.0'
+basePath: /
+info:
+  title: Wetest Api
+  version: 0.0.0
+paths:
+  /api/collections:
+    get:
+      tags:
+        - Collection
+      operationId: getCollectionCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Collection resources.
+      responses:
+        '200':
+          description: Collection collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Collection-collection_collection-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Collection
+      operationId: postCollectionCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Collection resource.
+      parameters:
+        - name: collection
+          in: body
+          description: The new Collection resource
+          schema:
+            $ref: '#/definitions/Collection-collection_collection-write'
+      responses:
+        '201':
+          description: Collection resource created
+          schema:
+            $ref: '#/definitions/Collection-collection_collection-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/collections/{id}':
+    get:
+      tags:
+        - Collection
+      operationId: getCollectionItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Collection resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Collection resource response
+          schema:
+            $ref: '#/definitions/Collection-collection_collection-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Collection
+      operationId: putCollectionItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Collection resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: collection
+          in: body
+          description: The updated Collection resource
+          schema:
+            $ref: '#/definitions/Collection-collection_collection-write'
+      responses:
+        '200':
+          description: Collection resource updated
+          schema:
+            $ref: '#/definitions/Collection-collection_collection-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Collection
+      operationId: deleteCollectionItem
+      summary: Removes the Collection resource.
+      responses:
+        '204':
+          description: Collection resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/environments:
+    get:
+      tags:
+        - Environment
+      operationId: getEnvironmentCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Environment resources.
+      responses:
+        '200':
+          description: Environment collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Environment-environment_environment-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Environment
+      operationId: postEnvironmentCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Environment resource.
+      parameters:
+        - name: environment
+          in: body
+          description: The new Environment resource
+          schema:
+            $ref: '#/definitions/Environment-environment_environment-write'
+      responses:
+        '201':
+          description: Environment resource created
+          schema:
+            $ref: '#/definitions/Environment-environment_environment-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/environments/{id}':
+    get:
+      tags:
+        - Environment
+      operationId: getEnvironmentItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Environment resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Environment resource response
+          schema:
+            $ref: '#/definitions/Environment-environment_environment-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Environment
+      operationId: putEnvironmentItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Environment resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: environment
+          in: body
+          description: The updated Environment resource
+          schema:
+            $ref: '#/definitions/Environment-environment_environment-write'
+      responses:
+        '200':
+          description: Environment resource updated
+          schema:
+            $ref: '#/definitions/Environment-environment_environment-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Environment
+      operationId: deleteEnvironmentItem
+      summary: Removes the Environment resource.
+      responses:
+        '204':
+          description: Environment resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/events:
+    get:
+      tags:
+        - Event
+      operationId: getEventCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Event resources.
+      responses:
+        '200':
+          description: Event collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event-event_event-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Event
+      operationId: postEventCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Event resource.
+      parameters:
+        - name: event
+          in: body
+          description: The new Event resource
+          schema:
+            $ref: '#/definitions/Event-event_event-write'
+      responses:
+        '201':
+          description: Event resource created
+          schema:
+            $ref: '#/definitions/Event-event_event-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/events/{id}':
+    get:
+      tags:
+        - Event
+      operationId: getEventItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Event resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Event resource response
+          schema:
+            $ref: '#/definitions/Event-event_event-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Event
+      operationId: putEventItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Event resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: event
+          in: body
+          description: The updated Event resource
+          schema:
+            $ref: '#/definitions/Event-event_event-write'
+      responses:
+        '200':
+          description: Event resource updated
+          schema:
+            $ref: '#/definitions/Event-event_event-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Event
+      operationId: deleteEventItem
+      summary: Removes the Event resource.
+      responses:
+        '204':
+          description: Event resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/items:
+    get:
+      tags:
+        - Item
+      operationId: getItemCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Item resources.
+      responses:
+        '200':
+          description: Item collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item-item_item-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Item
+      operationId: postItemCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Item resource.
+      parameters:
+        - name: item
+          in: body
+          description: The new Item resource
+          schema:
+            $ref: '#/definitions/Item-item_item-write'
+      responses:
+        '201':
+          description: Item resource created
+          schema:
+            $ref: '#/definitions/Item-item_item-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/items/{id}':
+    get:
+      tags:
+        - Item
+      operationId: getItemItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Item resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Item resource response
+          schema:
+            $ref: '#/definitions/Item-item_item-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Item
+      operationId: putItemItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Item resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: item
+          in: body
+          description: The updated Item resource
+          schema:
+            $ref: '#/definitions/Item-item_item-write'
+      responses:
+        '200':
+          description: Item resource updated
+          schema:
+            $ref: '#/definitions/Item-item_item-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Item
+      operationId: deleteItemItem
+      summary: Removes the Item resource.
+      responses:
+        '204':
+          description: Item resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/requests:
+    get:
+      tags:
+        - Request
+      operationId: getRequestCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Request resources.
+      responses:
+        '200':
+          description: Request collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Request-request_request-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Request
+      operationId: postRequestCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Request resource.
+      parameters:
+        - name: request
+          in: body
+          description: The new Request resource
+          schema:
+            $ref: '#/definitions/Request-request_request-write'
+      responses:
+        '201':
+          description: Request resource created
+          schema:
+            $ref: '#/definitions/Request-request_request-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/requests/{id}':
+    get:
+      tags:
+        - Request
+      operationId: getRequestItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Request resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Request resource response
+          schema:
+            $ref: '#/definitions/Request-request_request-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Request
+      operationId: putRequestItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Request resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: request
+          in: body
+          description: The updated Request resource
+          schema:
+            $ref: '#/definitions/Request-request_request-write'
+      responses:
+        '200':
+          description: Request resource updated
+          schema:
+            $ref: '#/definitions/Request-request_request-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Request
+      operationId: deleteRequestItem
+      summary: Removes the Request resource.
+      responses:
+        '204':
+          description: Request resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/responses:
+    get:
+      tags:
+        - Response
+      operationId: getResponseCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Response resources.
+      responses:
+        '200':
+          description: Response collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Response-response_response-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Response
+      operationId: postResponseCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Response resource.
+      parameters:
+        - name: response
+          in: body
+          description: The new Response resource
+          schema:
+            $ref: '#/definitions/Response-response_response-write'
+      responses:
+        '201':
+          description: Response resource created
+          schema:
+            $ref: '#/definitions/Response-response_response-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/responses/{id}':
+    get:
+      tags:
+        - Response
+      operationId: getResponseItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Response resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Response resource response
+          schema:
+            $ref: '#/definitions/Response-response_response-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Response
+      operationId: putResponseItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Response resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: response
+          in: body
+          description: The updated Response resource
+          schema:
+            $ref: '#/definitions/Response-response_response-write'
+      responses:
+        '200':
+          description: Response resource updated
+          schema:
+            $ref: '#/definitions/Response-response_response-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Response
+      operationId: deleteResponseItem
+      summary: Removes the Response resource.
+      responses:
+        '204':
+          description: Response resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/scripts:
+    get:
+      tags:
+        - Script
+      operationId: getScriptCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of Script resources.
+      responses:
+        '200':
+          description: Script collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Script-script_script-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - Script
+      operationId: postScriptCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a Script resource.
+      parameters:
+        - name: script
+          in: body
+          description: The new Script resource
+          schema:
+            $ref: '#/definitions/Script-script_script-write'
+      responses:
+        '201':
+          description: Script resource created
+          schema:
+            $ref: '#/definitions/Script-script_script-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/scripts/{id}':
+    get:
+      tags:
+        - Script
+      operationId: getScriptItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a Script resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Script resource response
+          schema:
+            $ref: '#/definitions/Script-script_script-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - Script
+      operationId: putScriptItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the Script resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: script
+          in: body
+          description: The updated Script resource
+          schema:
+            $ref: '#/definitions/Script-script_script-write'
+      responses:
+        '200':
+          description: Script resource updated
+          schema:
+            $ref: '#/definitions/Script-script_script-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - Script
+      operationId: deleteScriptItem
+      summary: Removes the Script resource.
+      responses:
+        '204':
+          description: Script resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  /api/users:
+    get:
+      tags:
+        - User
+      operationId: getUserCollection
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves the collection of User resources.
+      responses:
+        '200':
+          description: User collection response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User-user_user-read'
+      parameters:
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: The collection page number
+    post:
+      tags:
+        - User
+      operationId: postUserCollection
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Creates a User resource.
+      parameters:
+        - name: user
+          in: body
+          description: The new User resource
+          schema:
+            $ref: '#/definitions/User-user_user-write'
+      responses:
+        '201':
+          description: User resource created
+          schema:
+            $ref: '#/definitions/User-user_user-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+  '/api/users/{id}':
+    get:
+      tags:
+        - User
+      operationId: getUserItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a User resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User resource response
+          schema:
+            $ref: '#/definitions/User-user_user-read'
+        '404':
+          description: Resource not found
+    put:
+      tags:
+        - User
+      operationId: putUserItem
+      consumes:
+        - application/ld+json
+        - application/json
+        - text/html
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Replaces the User resource.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: user
+          in: body
+          description: The updated User resource
+          schema:
+            $ref: '#/definitions/User-user_user-write'
+      responses:
+        '200':
+          description: User resource updated
+          schema:
+            $ref: '#/definitions/User-user_user-read'
+        '400':
+          description: Invalid input
+        '404':
+          description: Resource not found
+    delete:
+      tags:
+        - User
+      operationId: deleteUserItem
+      summary: Removes the User resource.
+      responses:
+        '204':
+          description: User resource deleted
+        '404':
+          description: Resource not found
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+  '/api/users/{id}/postman/sync':
+    get:
+      tags:
+        - User
+      operationId: user_postman_syncUserItem
+      produces:
+        - application/ld+json
+        - application/json
+        - text/html
+      summary: Retrieves a User resource.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User resource response
+          schema:
+            $ref: '#/definitions/User-user_user-read'
+        '404':
+          description: Resource not found
+definitions:
+  Collection-collection_collection-read:
+    type: object
+    description: Class Collection
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      schemaUrl:
+        type: string
+      items:
+        readOnly: true
+        type: array
+        items:
+          type: string
+  Collection-collection_collection-write:
+    type: object
+    description: Class Collection
+    required:
+      - postmanId
+      - name
+    properties:
+      postmanId:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      schemaUrl:
+        type: string
+      user:
+        type: string
+  Environment-environment_environment-read:
+    type: object
+    description: Class Environment
+  Environment-environment_environment-write:
+    type: object
+    description: Class Environment
+    required:
+      - postmanId
+    properties:
+      postmanId:
+        type: string
+      user:
+        type: string
+  Event-event_event-read:
+    type: object
+    description: Class Event
+    required:
+      - listen
+    properties:
+      listen:
+        type: string
+      script:
+        readOnly: true
+        type: string
+  Event-event_event-write:
+    type: object
+    description: Class Event
+    required:
+      - listen
+    properties:
+      listen:
+        type: string
+      item:
+        type: string
+  Item-item_item-read:
+    type: object
+    description: Class Request
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      group:
+        type: string
+      description:
+        type: string
+      events:
+        readOnly: true
+        type: array
+        items:
+          type: string
+      request:
+        readOnly: true
+        type: string
+      responses:
+        readOnly: true
+        type: array
+        items:
+          type: string
+  Item-item_item-write:
+    type: object
+    description: Class Request
+    required:
+      - postmanId
+      - name
+    properties:
+      postmanId:
+        type: string
+      name:
+        type: string
+      group:
+        type: string
+      description:
+        type: string
+      collection:
+        type: string
+  Request-request_request-read:
+    type: object
+    description: Class Request
+    properties:
+      url:
+        type: string
+      method:
+        type: string
+      mode:
+        type: string
+      body:
+        type: string
+      headers:
+        type: array
+        items:
+          type: string
+      description:
+        type: string
+    required:
+      - headers
+  Request-request_request-write:
+    type: object
+    description: Class Request
+    properties:
+      url:
+        type: string
+      method:
+        type: string
+      mode:
+        type: string
+      body:
+        type: string
+      headers:
+        type: array
+        items:
+          type: string
+      description:
+        type: string
+      item:
+        type: string
+    required:
+      - headers
+  Response-response_response-read:
+    type: object
+    description: Class Response
+  Response-response_response-write:
+    type: object
+    description: Class Response
+    properties:
+      item:
+        type: string
+  Script-script_script-read:
+    type: object
+    description: Class Script
+    properties:
+      event:
+        readOnly: true
+        type: string
+      type:
+        type: string
+      exec:
+        type: string
+    required:
+      - type
+      - exec
+  Script-script_script-write:
+    type: object
+    description: Class Script
+    required:
+      - type
+      - exec
+    properties:
+      type:
+        type: string
+      exec:
+        type: string
+  User-user_user-read:
+    type: object
+    description: Class User
+    properties:
+      email:
+        type: string
+      fullname:
+        type: string
+      username:
+        type: string
+      collections:
+        readOnly: true
+        type: array
+        items:
+          type: string
+      environments:
+        readOnly: true
+        type: array
+        items:
+          type: string
+  User-user_user-write:
+    type: object
+    description: Class User
+    properties:
+      email:
+        type: string
+      fullname:
+        type: string
+      plainPassword: {}
+      postmanToken:
+        type: string
+      username:
+        type: string

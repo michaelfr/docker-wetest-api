@@ -9,8 +9,6 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use AppBundle\Entity\Postman\Collection;
-use AppBundle\Entity\Postman\Environment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -25,23 +23,19 @@ use Doctrine\Common\Collections\Collection as DoctrineCollection;
  *
  * @ApiResource(
  *     attributes={
- *          "normalization_context"={"groups"={"user", "user-read"}},
- *          "denormalization_context"={"groups"={"user", "user-write"}}
+ *          "normalization_context"={"groups"={"user"}},
+ *          "denormalization_context"={"groups"={"user"}}
  *     }
  * )
  *
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(
  *     uniqueConstraints={
- *          @ORM\UniqueConstraint(name="email_postman_token_unique", columns={"email", "postman_token"})
+ *          @ORM\UniqueConstraint(name="email_unique", columns={"email"})
  *     }
  * )
  *
- * @UniqueEntity(
- *     fields={"email", "postmanToken"},
- *     errorPath="postmanToken",
- *     message="This postmanToken is already in use with another email."
- * )
+ * @UniqueEntity("email")
  */
 class User extends BaseUser
 {
@@ -67,16 +61,9 @@ class User extends BaseUser
     protected $fullname;
 
     /**
-     * @Groups({"user-write"})
+     * @Groups({"user"})
      */
     protected $plainPassword;
-
-    /**
-     * @var string|null $postmanToken
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user-write"})
-     */
-    protected $postmanToken = null;
 
     /**
      * @Groups({"user"})
@@ -84,18 +71,11 @@ class User extends BaseUser
     protected $username;
 
     /**
-     * @var Collection[]|DoctrineCollection|ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Postman\Collection", mappedBy="user")
-     * @Groups({"user-read"})
+     * @var Project[]|DoctrineCollection|ArrayCollection|array
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Project", mappedBy="user")
+     * @Groups({"user"})
      */
-    protected $collections;
-
-    /**
-     * @var Environment[]|DoctrineCollection|ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Postman\Environment", mappedBy="user")
-     * @Groups({"user-read"})
-     */
-    protected $environments;
+    protected $projects;
 
     /**
      * @inheritdoc
@@ -104,8 +84,7 @@ class User extends BaseUser
     {
         parent::__construct();
 
-        $this->collections = new ArrayCollection();
-        $this->environments = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function setFullname($fullname)
@@ -125,61 +104,21 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return Project[]|DoctrineCollection|ArrayCollection|array
      */
-    public function getPostmanToken()
+    public function getProjects()
     {
-        return $this->postmanToken;
+        return $this->projects;
     }
 
     /**
-     * @param mixed $postmanToken
+     * @param Project[]|DoctrineCollection|ArrayCollection|array $projects
      *
      * @return User
      */
-    public function setPostmanToken($postmanToken)
+    public function setProjects(array $projects = [])
     {
-        $this->postmanToken = $postmanToken;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection[]|ArrayCollection|DoctrineCollection
-     */
-    public function getCollections()
-    {
-        return $this->collections;
-    }
-
-    /**
-     * @param Collection[]|ArrayCollection|DoctrineCollection $collections
-     *
-     * @return User
-     */
-    public function setCollections($collections)
-    {
-        $this->collections = $collections;
-
-        return $this;
-    }
-
-    /**
-     * @return Environment[]|ArrayCollection|DoctrineCollection
-     */
-    public function getEnvironments()
-    {
-        return $this->environments;
-    }
-
-    /**
-     * @param Environment[]|ArrayCollection|DoctrineCollection $environments
-     *
-     * @return User
-     */
-    public function setEnvironments($environments)
-    {
-        $this->environments = $environments;
+        $this->projects = $projects;
 
         return $this;
     }
