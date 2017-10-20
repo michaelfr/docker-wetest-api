@@ -34,6 +34,28 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/show")
+     */
+    public function showAction()
+    {
+        /** @var Specification $specification */
+        $specification = $this->get(SpecificationManager::class)->getSchemas()[0];
+        $resources = [];
+        foreach ($specification->getOperations() as $operation) {
+            $resources[$operation->getResourceName()][] = $operation;
+        }
+
+        return $this->render(
+            'UiBundle:Default:show.html.twig',
+            [
+                'user' => $this->getUser(),
+                'specification' => $specification,
+                'resources' => $resources,
+            ]
+        );
+    }
+
+    /**
      * @Route("/login")
      */
     public function loginAction()

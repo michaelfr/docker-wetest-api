@@ -4,69 +4,81 @@
     {% for i, specification in specifications %}
         <div class="row">
             <div class="col-md-12">
-                <div class="box box-default collapsed-box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{{ specification.title }} {{ specification.version }}</h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                        class="fa fa-plus"></i>
-                            </button>
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-aqua-active">
+                        <div class="btn-group pull-right">
+                            <a href="{{ url('ui_default_show') }}" title="Setting" class="btn btn-sm btn-default btn-flat"><i class="fa fa-cog"></i></a>
                         </div>
-                        <!-- /.box-tools -->
+                        <h3 class="widget-user-username">{{ specification.title }}</h3>
+                        <h5 class="widget-user-desc">{{ specification.version }}</h5>
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="" data-src="holder.js/90x90?text=logo">
+                    </div>
+                    <div class="box-footer">
                         <div class="row">
-                            {% for resourceName, resourceOperations in resources[i] %}
-                            <div class="col-md-6">
-                                <div class="box box-widget widget-user-2">
-                                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                                    <div class="widget-user-header bg-info">
-                                        <div class="widget-user-image">
-                                            <img class="img-circle" src="" data-src="holder.js/65x65" alt="{{ resourceName }}">
-                                        </div>
-                                        <!-- /.widget-user-image -->
-                                        <h3 class="widget-user-username">{{ resourceName }}</h3>
-                                        <h5 class="widget-user-desc">Operations : {{ resourceOperations|length }} | Definitions : {{ specification.definitions|length }} | Tests : 351</h5>
-                                    </div>
-                                    <div class="box-footer no-padding">
-                                        <ul class="nav nav-stacked">
-                                            {% for resourceOperation  in resourceOperations %}
-                                                <li>
-                                                    <a href="#">
-                                                        {{ resourceOperation.description }}
-                                                        {% if resourceOperation.method == 'get' %}
-                                                            <span class="label label-info pull-right">{{ resourceOperation.method }}</span>
-                                                        {% endif %}
-                                                        {% if resourceOperation.method == 'post' %}
-                                                            <span class="label label-success pull-right">{{ resourceOperation.method }}</span>
-                                                        {% endif %}
-                                                        {% if resourceOperation.method == 'put' %}
-                                                            <span class="label label-warning pull-right">{{ resourceOperation.method }}</span>
-                                                        {% endif %}
-                                                        {% if resourceOperation.method == 'delete' %}
-                                                            <span class="label label-danger pull-right">{{ resourceOperation.method }}</span>
-                                                        {% endif %}
-                                                    </a>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ resources[i]|length }}</h5>
+                                    <span class="description-text">RESOURCES</span>
                                 </div>
-                                <!-- /.widget-user -->
                             </div>
-                            {% endfor %}
-
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">124</h5>
+                                    <span class="description-text">DEFINITIONS</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <h5 class="description-header">523</h5>
+                                    <span class="description-text">TESTS</span>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-aqua-active">
+                        <div class="btn-group pull-right">
+                            <a href="{{ url('ui_default_show') }}" title="Setting" class="btn btn-sm btn-default btn-flat"><i class="fa fa-cog"></i></a>
+                        </div>
+                        <h3 class="widget-user-username">Batch Api</h3>
+                        <h5 class="widget-user-desc">1.1</h5>
+                    </div>
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="" data-src="holder.js/90x90?text=logo">
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{ resources[i]|length }}</h5>
+                                    <span class="description-text">RESOURCES</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">72</h5>
+                                    <span class="description-text">DEFINITIONS</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <h5 class="description-header">127</h5>
+                                    <span class="description-text">TESTS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}

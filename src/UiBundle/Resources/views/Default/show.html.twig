@@ -1,0 +1,93 @@
+{% extends '@Ui/Layout/default.html.twig' %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                    <div class="btn-group pull-right">
+                        <button type="button" title="Edit" class="btn btn-sm btn-default btn-flat"><i class="fa fa-edit"></i></button>
+                        <button type="button" title="Run all tests" class="btn btn-sm btn-default btn-flat"><i class="fa fa-play"></i></button>
+                    </div>
+                    <h3 class="widget-user-username">{{ specification.title }}</h3>
+                    <h5 class="widget-user-desc">{{ specification.version }}</h5>
+                </div>
+                <div class="widget-user-image">
+                    <img class="img-circle" src="" data-src="holder.js/90x90?text=logo">
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">{{ resources|length }}</h5>
+                                <span class="description-text">RESOURCES</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">124</h5>
+                                <span class="description-text">DEFINITIONS</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="description-block">
+                                <h5 class="description-header">523</h5>
+                                <span class="description-text">TESTS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for resourceName, resourceOperations in resources %}
+            <div class="col-md-6">
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="" data-src="holder.js/65x65" alt="{{ resourceName }}">
+                        </div>
+                        <a class="btn btn-app pull-right">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                        <a class="btn btn-app pull-right">
+                            <i class="fa fa-play"></i> Run
+                        </a>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">{{ resourceName }}</h3>
+                        <h5 class="widget-user-desc">Operations : {{ resourceOperations|length }} |
+                            Definitions : {{ specification.definitions|length }} | Tests : 351</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            {% for resourceOperation  in resourceOperations %}
+                                <li>
+                                    <a href="#">
+                                        {% if resourceOperation.method == 'get' %}
+                                            <span class="label label-info pull-right">{{ resourceOperation.method }}</span>
+                                        {% endif %}
+                                        {% if resourceOperation.method == 'post' %}
+                                            <span class="label label-success pull-right">{{ resourceOperation.method }}</span>
+                                        {% endif %}
+                                        {% if resourceOperation.method == 'put' %}
+                                            <span class="label label-warning pull-right">{{ resourceOperation.method }}</span>
+                                        {% endif %}
+                                        {% if resourceOperation.method == 'delete' %}
+                                            <span class="label label-danger pull-right">{{ resourceOperation.method }}</span>
+                                        {% endif %}
+                                        <p class="lead">{{ resourceOperation.uri }}</p>
+                                        <h5>{{ resourceOperation.description }}</h5>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
